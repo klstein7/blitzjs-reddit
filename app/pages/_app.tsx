@@ -8,17 +8,35 @@ import {
   useQueryErrorResetBoundary,
 } from "blitz"
 import LoginForm from "app/auth/components/LoginForm"
+import { Center, ChakraProvider, CircularProgress, extendTheme } from "@chakra-ui/react"
+import React, { Suspense } from "react"
+
+const theme = extendTheme({
+  config: {
+    initialColorMode: "dark",
+  },
+})
 
 export default function App({ Component, pageProps }: AppProps) {
   const getLayout = Component.getLayout || ((page) => page)
 
   return (
-    <ErrorBoundary
-      FallbackComponent={RootErrorFallback}
-      onReset={useQueryErrorResetBoundary().reset}
-    >
-      {getLayout(<Component {...pageProps} />)}
-    </ErrorBoundary>
+    <ChakraProvider theme={theme}>
+      <ErrorBoundary
+        FallbackComponent={RootErrorFallback}
+        onReset={useQueryErrorResetBoundary().reset}
+      >
+        <Suspense
+          fallback={
+            <Center w="100%" h="100vh">
+              <CircularProgress width={10} isIndeterminate />
+            </Center>
+          }
+        >
+          {getLayout(<Component {...pageProps} />)}
+        </Suspense>
+      </ErrorBoundary>
+    </ChakraProvider>
   )
 }
 
