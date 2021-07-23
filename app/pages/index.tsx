@@ -14,7 +14,6 @@ import PostList from "app/core/components/PostList/PostList"
 const Home: BlitzPage = () => {
   const [posts] = useQuery(getPosts, undefined)
 
-  console.log(posts)
   return <PostList posts={posts} />
 }
 

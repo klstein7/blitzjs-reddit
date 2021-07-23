@@ -6,11 +6,10 @@ import { FaComment, FaCommentAlt, FaComments } from "react-icons/fa"
 import PostVotes from "../PostVotes/PostVotes"
 
 type Props = {
-  post: PostType
+  post: PostType & { _count: { comments: number } }
 }
 
 const Post: React.FC<Props> = ({ post }: Props) => {
-  console.log(post.createdAt)
   return (
     <Stack
       direction="row"
@@ -29,17 +28,24 @@ const Post: React.FC<Props> = ({ post }: Props) => {
           <Text fontSize="lg" fontWeight={600}>
             {post.title}
           </Text>
-          <Text fontSize="sm" color="gray.400">
+          <Text fontSize="xs" color="gray.400">
             {post.url}
           </Text>
+          {post.body && (
+            <Text fontSize="sm" color="gray.300">
+              {post.body}
+            </Text>
+          )}
         </Box>
         <Spacer />
         <Stack w="100%" direction="row" align="center">
           <Flex align="center">
             <FaCommentAlt size={10} />
-            <Text fontSize="xs" color="gray.400" ml={2}>
-              <Link href={Routes.PostDetail({ id: post.id })}>0 comments</Link>
-            </Text>
+            <Link href={Routes.PostDetail({ id: post.id })}>
+              <Text cursor="pointer" fontSize="xs" color="gray.400" ml={2}>
+                {post._count.comments} comments
+              </Text>
+            </Link>
           </Flex>
           <Spacer />
           <Flex align="center">
