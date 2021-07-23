@@ -14,10 +14,23 @@ const mockUseCurrentUser = useCurrentUser as jest.MockedFunction<typeof useCurre
 //   role: "user",
 // })
 
+const post = {
+  id: "1",
+  title: "Test post",
+  url: "https://www.google.com",
+  createdAt: new Date(),
+  userId: "1",
+  user: {
+    id: 1,
+    email: "test@test.com",
+    name: "Test",
+  },
+}
+
 describe("Post", () => {
   it("renders successfully", () => {
     expect(() => {
-      render(<Post />)
+      render(<Post post={post} />)
     }).not.toThrow()
   })
 })
