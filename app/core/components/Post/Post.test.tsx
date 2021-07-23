@@ -18,6 +18,7 @@ const post = {
   id: "1",
   title: "Test post",
   url: "https://www.google.com",
+  body: "",
   createdAt: new Date(),
   userId: "1",
   user: {
