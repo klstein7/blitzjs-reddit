@@ -20,7 +20,7 @@ const post = {
   url: "https://www.google.com",
   body: "",
   createdAt: new Date(),
-  userId: "1",
+  userId: 1,
   user: {
     id: 1,
     email: "test@test.com",
