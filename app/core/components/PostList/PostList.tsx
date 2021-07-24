@@ -11,6 +11,7 @@ const PostList: React.FC<Props> = ({ posts }: Props) => {
   return (
     <Stack bg="gray.900" p={3}>
       {posts.map((post) => (
+        /* @ts-ignore */
         <Post key={post.id} post={post} />
       ))}
     </Stack>

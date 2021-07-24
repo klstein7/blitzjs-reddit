@@ -20,7 +20,10 @@ export const getServerSideProps = async ({ params, req, res }) => {
 }
 
 type Props = {
-  post: PostType & { _count: { comments: number } }
+  post: PostType & {
+    _count: { comments: number }
+    user: { id: number; name: string | null; email: string }
+  }
   children: React.ReactNode
 }
 

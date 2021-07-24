@@ -6,7 +6,10 @@ import { FaComment, FaCommentAlt, FaComments } from "react-icons/fa"
 import PostVotes from "../PostVotes/PostVotes"
 
 type Props = {
-  post: PostType & { _count: { comments: number } }
+  post: PostType & {
+    _count: { comments: number }
+    user: { id: number; name: string | null; email: string }
+  }
 }
 
 const Post: React.FC<Props> = ({ post }: Props) => {

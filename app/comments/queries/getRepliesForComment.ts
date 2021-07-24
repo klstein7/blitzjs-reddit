@@ -1,7 +1,7 @@
 import db from "db"
 
 type GetRepliesForComment = {
-  parentId: string
+  parentId: string | null
 }
 
 export default async function getRepliesForComment({ parentId }: GetRepliesForComment) {

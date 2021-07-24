@@ -36,7 +36,7 @@ const DeleteCommentAlertDialog: React.FC<Props> = ({ commentId, parentId, postId
       <Button size="xs" variant="unstyled" onClick={() => setIsOpen(true)}>
         Delete
       </Button>
-
+      {/* @ts-ignore */}
       <AlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={onClose} isCentered>
         <AlertDialogOverlay>
           <AlertDialogContent>
@@ -49,6 +49,7 @@ const DeleteCommentAlertDialog: React.FC<Props> = ({ commentId, parentId, postId
             </AlertDialogBody>
 
             <AlertDialogFooter>
+              {/* @ts-ignore */}
               <Button ref={cancelRef} onClick={onClose}>
                 Cancel
               </Button>
