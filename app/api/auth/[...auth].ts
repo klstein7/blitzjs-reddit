@@ -10,9 +10,9 @@ export default passportAuth({
     {
       strategy: new GithubStrategy(
         {
-          clientID: "53249fcb124466c5422f",
-          clientSecret: "4436083d5115e6b1afc0f540a4d1c1bf0236303e",
-          callbackUrl: "http://localhost:3000/api/auth/github/callback",
+          clientID: process.env.GITHUB_CLIENT_ID,
+          clientSecret: process.env.GITHUB_CLIENT_SECRET,
+          callbackUrl: process.env.GITHUB_CALLBACK_URL,
         },
         async function (_token, _tokenSecret, profile, done) {
           console.log(profile)
