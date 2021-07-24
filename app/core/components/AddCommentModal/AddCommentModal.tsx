@@ -26,6 +26,7 @@ import getPosts from "app/posts/queries/getPosts"
 import { invalidateQuery, useMutation } from "blitz"
 import { Field, Form, Formik } from "formik"
 import React from "react"
+import { useState } from "react"
 import { FaPlusSquare } from "react-icons/fa"
 
 type Props = {
@@ -37,8 +38,10 @@ const AddCommentModal: React.FC<Props> = ({ postId, parentId = undefined }: Prop
   const { isOpen, onOpen, onClose } = useDisclosure()
   const currentUser = useCurrentUser()
   const [createCommentMutation] = useMutation(createComment)
+  const [loading, setLoading] = useState(false)
 
   const handleOnSubmit = async (values, { resetForm }) => {
+    setLoading(true)
     await createCommentMutation({ ...values, postId, parentId })
     if (!parentId) {
       await invalidateQuery(getCommentsForPost, { postId })
@@ -47,6 +50,7 @@ const AddCommentModal: React.FC<Props> = ({ postId, parentId = undefined }: Prop
     }
     resetForm()
     onClose()
+    setLoading(false)
   }
 
   return (
@@ -106,7 +110,13 @@ const AddCommentModal: React.FC<Props> = ({ postId, parentId = undefined }: Prop
                         )}
                       </Field>
                       <Flex justify="flex-end" pt={3}>
-                        <Button color="white" bg="blue.700" type="submit">
+                        <Button
+                          color="white"
+                          bg="blue.700"
+                          type="submit"
+                          isLoading={loading}
+                          isDisabled={!currentUser || loading}
+                        >
                           Submit
                         </Button>
                       </Flex>

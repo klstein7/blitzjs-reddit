@@ -29,7 +29,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <Suspense
           fallback={
             <Center w="100%" h="100vh">
-              <CircularProgress width={10} isIndeterminate />
+              <CircularProgress thickness="6px" color="purple.700" isIndeterminate />
             </Center>
           }
         >

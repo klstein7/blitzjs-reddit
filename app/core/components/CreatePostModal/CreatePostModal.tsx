@@ -22,6 +22,7 @@ import getPosts from "app/posts/queries/getPosts"
 import { invalidateQuery, useMutation } from "blitz"
 import { Field, Form, Formik } from "formik"
 import React from "react"
+import { useState } from "react"
 import { FaPlusSquare } from "react-icons/fa"
 
 type Props = {}
@@ -30,12 +31,15 @@ const CreatePostModal: React.FC<Props> = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const currentUser = useCurrentUser()
   const [createPostMutation] = useMutation(createPost)
+  const [loading, setLoading] = useState(false)
 
   const handleOnSubmit = async (values, { resetForm }) => {
+    setLoading(true)
     await createPostMutation(values)
     await invalidateQuery(getPosts)
     resetForm()
     onClose()
+    setLoading(false)
   }
 
   return (
@@ -100,7 +104,13 @@ const CreatePostModal: React.FC<Props> = (props) => {
                         )}
                       </Field>
                       <Flex justify="flex-end" pt={3}>
-                        <Button color="white" bg="blue.700" type="submit">
+                        <Button
+                          color="white"
+                          bg="blue.700"
+                          type="submit"
+                          isLoading={loading}
+                          isDisabled={!currentUser || loading}
+                        >
                           Submit
                         </Button>
                       </Flex>
